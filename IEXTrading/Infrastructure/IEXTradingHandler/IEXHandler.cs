@@ -46,6 +46,39 @@ namespace IEXTrading.Infrastructure.IEXTradingHandler
         }
 
         /****
+         * Calls the IEX reference API to get the list of symbols. 
+        ****/
+        public List<Quote> GetQuotes()
+        {
+            string IEXTrading_API_PATH = BASE_URL + "stock/market/collection/sector?collectionName=Technology";
+            string quoteList = "";
+
+            List<Quote> quotes = null;
+
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+
+            httpClient.BaseAddress = new Uri(IEXTrading_API_PATH);
+            HttpResponseMessage response = httpClient.GetAsync(IEXTrading_API_PATH).GetAwaiter().GetResult();
+            if (response.IsSuccessStatusCode)
+            {
+                quoteList = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            }
+
+            if (!quoteList.Equals(""))
+            {
+                quotes = JsonConvert.DeserializeObject<List<Quote>>(quoteList, settings);
+                quotes = quotes.Where(w => w.marketCap >= 5000000000).ToList();
+            }
+            return quotes;
+
+        }
+
+
+        /****
          * Calls the IEX stock API to get 1 year's chart for the supplied symbol. 
         ****/
         public List<Equity> GetChart(string symbol)

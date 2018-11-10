@@ -8,22 +8,25 @@
     <script type="text/javascript" src="~/js/Chart.min.js"></script>
     <script type="text/javascript" src="~/lib/chartjs-plugin-annotation-master/chartjs-plugin-annotation.min.js"></script>
     <script type="text/javascript" src="~/js/site.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-<body>
-    <nav>
+<body style="background-color:linen;">
+    @*<nav>
         <div class="nav-bar">
             <a asp-area="" asp-controller="Home" asp-action="Index">Home </a><text> | </text>
             <a asp-area="" asp-controller="Home" asp-action="Symbols">Symbols </a><text> | </text>
             <a asp-area="" asp-controller="Home" asp-action="Chart">Chart </a><text> | </text>
             <a asp-area="" asp-controller="Home" asp-action="Refresh">Refresh </a><text> | </text>
         </div>
-    </nav>
+    </nav>*@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
+        @*<footer>
             <p>ISDS, Muma College of Business, University of South Florida</p>
-        </footer>
+        </footer>*@
     </div>
     @RenderSection("Scripts", required: false)
 </body>
