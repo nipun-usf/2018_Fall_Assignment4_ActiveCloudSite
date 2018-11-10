@@ -1,4 +1,4 @@
-﻿@model IEnumerable<IEXTrading.Models.Quote>
+﻿@model IEnumerable<IEXTrading.Models.ViewModel.QuotesEquities>
 
 @{
     ViewData["Title"] = "Index";
@@ -20,39 +20,41 @@
                     <th>Low</th>
                     <th>Prev Close</th>
                     <th>Date</th>
+                    <th>Charts</th>
                 </tr>
             </thead>
                 @foreach (var item in Model)
                 {
-                    string mkCapBn = (item.marketCap / 1000000000.0).ToString("#.##");
+                    string mkCapBn = (item.Quote.marketCap / 1000000000.0).ToString("#.##");
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.companyName)
+                            @Html.DisplayFor(modelItem => item.Quote.companyName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.symbol)
+                            @Html.DisplayFor(modelItem => item.Quote.symbol)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.latestPrice)
+                            @Html.DisplayFor(modelItem => item.Quote.latestPrice)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => mkCapBn)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.open)
+                            @Html.DisplayFor(modelItem => item.Quote.open)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.high)
+                            @Html.DisplayFor(modelItem => item.Quote.high)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.low)
+                            @Html.DisplayFor(modelItem => item.Quote.low)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.previousClose)
+                            @Html.DisplayFor(modelItem => item.Quote.previousClose)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.latestTime)
+                            @Html.DisplayFor(modelItem => item.Quote.latestTime)
                         </td>
+                        <td><button type="button" class="btn btn-primary btn-xs" onclick="getChart('@item.Dates', '@item.Prices', '@item.Volumes', @item.AvgPrice, @item.AvgVolume)">Get Chart</button></td>
                     </tr>
                 }
         </table>
@@ -60,10 +62,12 @@
     <div style="text-align:center;">
         <button id="export-btn" class="btn btn-primary" style="text-align:center;" onclick="location.href='@Url.Action("SaveTopStocks", "TopStocks")'">Save Stocks</button>
     </div>
-    
 </div>
 <br />
 <br />
+<div style="text-align: center">
+    <canvas id="myChart" height="500" width="1000"></canvas>
+</div>
 <script>
     alertDbSave(@ViewBag.dbSuccessComp);
 </script>
