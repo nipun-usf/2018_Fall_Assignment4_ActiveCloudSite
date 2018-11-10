@@ -1,10 +1,9 @@
-﻿using System;
+﻿using IEXTrading.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net.Http;
-using IEXTrading.Models;
-using Newtonsoft.Json;
 
 namespace IEXTrading.Infrastructure.IEXTradingHandler
 {
@@ -46,7 +45,7 @@ namespace IEXTrading.Infrastructure.IEXTradingHandler
         }
 
         /****
-         * Calls the IEX reference API to get the list of symbols. 
+         * Calls the IEX reference API to get the list of Technology stock quotes. 
         ****/
         public List<Quote> GetQuotes()
         {

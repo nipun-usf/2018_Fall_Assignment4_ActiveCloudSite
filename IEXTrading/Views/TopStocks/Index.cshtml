@@ -23,40 +23,40 @@
                     <th>Charts</th>
                 </tr>
             </thead>
-                @foreach (var item in Model)
-                {
-                    string mkCapBn = (item.Quote.marketCap / 1000000000.0).ToString("#.##");
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Quote.companyName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Quote.symbol)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Quote.latestPrice)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => mkCapBn)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Quote.open)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Quote.high)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Quote.low)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Quote.previousClose)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Quote.latestTime)
-                        </td>
-                        <td><button type="button" class="btn btn-primary btn-xs" onclick="getChart('@item.Dates', '@item.Prices', '@item.Volumes', @item.AvgPrice, @item.AvgVolume)">Get Chart</button></td>
-                    </tr>
-                }
+            @foreach (var item in Model)
+            {
+                string mkCapBn = (item.Quote.marketCap / 1000000000.0).ToString("#.##");
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quote.companyName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quote.symbol)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quote.latestPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => mkCapBn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quote.open)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quote.high)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quote.low)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quote.previousClose)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quote.latestTime)
+                    </td>
+                    <td><button type="button" class="btn btn-primary btn-xs" onclick="getChart('@item.Dates', '@item.Prices', '@item.Volumes', @item.AvgPrice, @item.AvgVolume)">Get Chart</button></td>
+                </tr>
+            }
         </table>
     </div>
     <div style="text-align:center;">

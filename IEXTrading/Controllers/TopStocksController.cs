@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IEXTrading.DataAccess;
-using Microsoft.AspNetCore.Mvc;
+﻿using IEXTrading.DataAccess;
 using IEXTrading.Infrastructure.IEXTradingHandler;
 using IEXTrading.Models;
 using IEXTrading.Models.ViewModel;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IEXTrading.Controllers
 {
@@ -67,7 +65,7 @@ namespace IEXTrading.Controllers
 
             //Save top stocks in TempData
             TempData["TopStocks"] = JsonConvert.SerializeObject(filteredQuotes);
-            
+
             return View(quotesEquities);
         }
 
@@ -91,6 +89,7 @@ namespace IEXTrading.Controllers
                 float avgprice = equities.Average(e => e.high);
                 double avgvol = equities.Average(e => e.volume) / 1000000; //Divide volume by million
                 quotesEquities.Add(new QuotesEquities(q, dates, prices, volumes, avgprice, avgvol));
+
                 //Database will give PK constraint violation error when trying to insert record with existing PK.
                 //So add company only if it doesnt exist, check existence using symbol (PK)
                 if (dbContext.Quotes.Where(c => c.symbol.Equals(q.symbol)).Count() == 0)
