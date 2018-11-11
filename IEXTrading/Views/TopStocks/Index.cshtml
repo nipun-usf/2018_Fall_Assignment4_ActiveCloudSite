@@ -5,6 +5,10 @@
 }
 
 <div class="container table-responsive">
+    <br />
+    <div style="text-align:right;">
+        <button type="button" class="btn btn-primary .btn-lg" data-toggle="modal" data-target="#myModal">Stock Picking Strategy and Reflections</button>
+    </div>
     <h1>Top 5 Technology Stocks to Buy/Sell this week</h1>
     <br />
     <div id="stocktable" class="table-editable">
@@ -63,11 +67,103 @@
         <button id="export-btn" class="btn btn-primary" style="text-align:center;" onclick="location.href='@Url.Action("SaveTopStocks", "TopStocks")'">Save Stocks</button>
     </div>
 </div>
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title"><b>Stock Picking Strategy and Self Reflection</b></h3>
+                </div>
+                <div class="modal-body" style="text-align: justify;text-justify: inter-word;">
+                    <h4><b><u>Stock Picking Strategy</u></b></h4>
+                    <p>
+                        We used <b>“52-Week Price Range Strategy”</b> from <a href=" https://www.aaii.com/journal/article/quantitative-strategies-for-selecting-stocks" target="_blank"> <u> Quantitative Strategies for Selecting Stocks </u> </a> .As per strategy,
+                    </p>
+                    <p>
+                        <i>
+                            “A simple way to measure price momentum is to consider the proximity of a stock to its 52-week high or low.
+                            The formula I used for this was current price minus 52-week low divided by 52-week high minus 52-week low.
+                            Stocks that score 82% or higher on this formula tend to outperform, while stocks that score 41% or lower tend to underperform.”
+                        </i>
+                    </p>
+                    <p>In the website, we will suggest <b>Top 5 Technology Stocks to Buy/Sell this week</b>. The Technology stocks have been extracted from <i>IEXTrading API</i> using below URL.</p>
+                    <p><a href=" https://api.iextrading.com/1.0/stock/market/collection/sector?collectionName=Technology" target="_blank"> <u> https://api.iextrading.com/1.0/stock/market/collection/sector?collectionName=Technology </u> </a></p>
+                    <p>
+                        This returns a comprehensive list of stock quotes within Technology sector.
+                        <b>The items in the JSON list (latestPrice, week52Low and week52High) will be used to implement 52-Week Price Range Strategy.</b>
+                    </p>
+                    <p>
+                        We have created a <b>model “Quote”</b> to store the JSON values of Technology stock.
+                        A <b>table “Quote”</b> will also be created in the database will be used to store the suggested stocks.
+                    </p>
+                    <p>
+                        We are only processing <b>Technology stocks</b> whose <b>market cap is greater than 5 Billion</b> and suggesting top 5 stocks out of them.
+                    </p>
+                    <p>
+                        Below is the method in <i>IEXHandler.cs</i> class that will get all the Technology Quotes, filter stocks whose market cap is greater than 5 Bn.
+                    </p>
+                    <img src="~/images/getquotes.png" height="400" width="800">
+                    <br />
+                    <br />
+                    <p>Next, Created a new controller <b>“TopStocksController”</b> and implemented 52-week price range strategy in <b>Index()</b> action method.</p>
+                    <p><b>Code snippet that implements the 52-week price range strategy in Index action method is shown below.</b></p>
+                    <br />
+                    <img src="~/images/strategy.png" height="400" width="800">
+                    <br />
+                    <br />
+                    <p>The <b>Get Chart</b> button will display the stock chart of the selected stock and <b>Save Stocks</b> button will save the stocks in <b>Quote table</b> in database.</p>
+                    <p><b>Save functionality is implemented in SaveTopStocks() in TopStocksController.</b></p>
+                    <br />
+                    <h4><b><u>Database Augmentation</u></b></h4>
+                    <p>
+                        The users can save top stocks in <b>Quote table</b> and accumulate the list over time.
+                        They can further analyze stocks to see how Technology stocks are performing over a span of time.
+                    </p>
+                    <br />
+                    <h4><b><u>Self Reflection</u></b></h4>
+                    <p>This assignment helped us in in learning -</p>
+                    <ul>
+                        <li>MVC Core and how data flows across Model, View and Controller architecture</li>
+                        <li>JavaScript and chart.js</li>
+                        <li>Database connectivity</li>
+                        <li>Entity Framework – Code First Approach</li>
+                        <li>ASP Core functionalities</li>
+                        <li>Bootstrap</li>
+                        <li>HTML and CSS</li>
+                        <li>Stock Trading and picking Strategies</li>
+                        <li>IEXTrading API and its features</li>
+                        <li>Hosting website on Azure cloud</li>
+                    </ul>
+                    <p>
+                        The <b>GitHub link</b> for the assignment code and files can be found
+                        <a href=" https://github.com/nipun-usf/2018_Fall_Assignment4_ActiveCloudSite " target="_blank"> <u>here</u></a>.
+                    </p>
+                    <h4><b><u>Assignment Contributers (Group 17):</u></b></h4>
+                    <ol type="1">
+                        <li>Ankit Singh</li>
+                        <li>Harish Yadav</li>
+                        <li>Nipun Soni</li>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
 <br />
 <br />
 <div style="text-align: center">
     <canvas id="myChart" height="500" width="1000"></canvas>
 </div>
+
 <script>
     alertDbSave(@ViewBag.dbSuccessComp);
 </script>

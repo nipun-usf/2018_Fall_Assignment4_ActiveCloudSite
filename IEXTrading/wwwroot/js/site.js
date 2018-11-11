@@ -1,4 +1,5 @@
 ﻿function getChart(dates, prices, vols, avgprice, avgvol) {
+    document.getElementById("myChart").innerHTML = "";
     var ctx = document.getElementById("myChart").getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'bar',
