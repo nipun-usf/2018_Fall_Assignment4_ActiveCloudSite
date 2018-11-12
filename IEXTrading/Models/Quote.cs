@@ -36,10 +36,10 @@ namespace IEXTrading.Models
         public string iexMarketPercent { get; set; }
         public int iexVolume { get; set; }
         public long avgTotalVolume { get; set; }
-        public int iexBidPrice { get; set; }
-        public int iexBidSize { get; set; }
-        public int iexAskPrice { get; set; }
-        public int iexAskSize { get; set; }
+        public string iexBidPrice { get; set; }
+        public string iexBidSize { get; set; }
+        public string iexAskPrice { get; set; }
+        public string iexAskSize { get; set; }
         public long marketCap { get; set; }
         public string peRatio { get; set; }
         public float week52High { get; set; }
